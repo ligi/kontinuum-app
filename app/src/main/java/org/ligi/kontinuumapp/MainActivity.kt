@@ -24,14 +24,15 @@ class MainActivity : AppCompatActivity() {
 
         window.addFlags(FLAG_TURN_SCREEN_ON or FLAG_DISMISS_KEYGUARD or FLAG_FULLSCREEN)
 
+        val retrofit = Retrofit.Builder()
+                .baseUrl("http://li5.ddns.net:9001")
+                .addConverterFactory(MoshiConverterFactory.create())
+                .build()
+
+        val service = retrofit.create(KontinuumApi::class.java)
+
         handler.post(object : Runnable {
             override fun run() {
-                val retrofit = Retrofit.Builder()
-                        .baseUrl("http://li5.ddns.net:9001")
-                        .addConverterFactory(MoshiConverterFactory.create())
-                        .build()
-
-                val service = retrofit.create(KontinuumApi::class.java)
 
                 service.getWorkPackages().enqueue(object : Callback<List<WorkPackage>> {
                     override fun onFailure(call: Call<List<WorkPackage>>?, t: Throwable?) {
