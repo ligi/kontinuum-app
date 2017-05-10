@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.item_workpackage.view.*
 
 class WorkPackageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(workPackage: WorkPackage) {
-        itemView.commit_msg_text.text = workPackage.commitMessage
+        itemView.commit_msg_text.text = workPackage.branch + ":" + workPackage.commitMessage
         itemView.status_text.text = workPackage.workPackageStatus.name
         itemView.project_text.text = workPackage.project
 
