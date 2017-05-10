@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
+import android.view.WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
 import kontinuum.model.WorkPackage
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
@@ -20,6 +22,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
+
+        window.addFlags(FLAG_TURN_SCREEN_ON or FLAG_DISMISS_KEYGUARD)
 
         handler.post(object : Runnable {
             override fun run() {
