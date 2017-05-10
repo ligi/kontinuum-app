@@ -2,6 +2,7 @@
 <android.support.v7.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -9,39 +10,52 @@
         app:cardMaxElevation="8dp">
 
 
-    <LinearLayout
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:orientation="vertical"
-            android:layout_gravity="center_vertical">
+            android:orientation="vertical">
+
 
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:id="@+id/project_text"
-                  android:textSize="16sp"
+                  android:textSize="18sp"
+                  tools:text="Project"
                   android:fontFamily="sans-serif"/>
+
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/time_text"
+                  tools:text="Time"
+                  android:layout_alignParentRight="true"
+                  android:fontFamily="sans-serif-condensed"/>
+
 
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:id="@+id/commit_msg_text"
                   android:lines="1"
+                  android:layout_below="@id/project_text"
                   android:fontFamily="sans-serif"/>
 
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:id="@+id/time_text"
+                  android:id="@+id/stateinfo_text"
+                  android:layout_below="@id/commit_msg_text"
                   android:fontFamily="sans-serif-condensed"/>
 
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/status_text"
-                  android:fontFamily="sans-serif-condensed"/>
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/stateinfo_text"
-                  android:fontFamily="sans-serif-condensed"/>
-    </LinearLayout>
+        <android.support.v7.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/status_image"
+                app:srcCompat="@drawable/ic_sentiment_satisfied_black_24dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+        />
+
+    </RelativeLayout>
 
 
 </android.support.v7.widget.CardView>
