@@ -31,17 +31,19 @@ class MainActivity : AppCompatActivity() {
 
         val service = retrofit.create(KontinuumApi::class.java)
 
+        recycler_view.layoutManager = LinearLayoutManager(this)
+
         handler.post(object : Runnable {
             override fun run() {
 
                 service.getWorkPackages().enqueue(object : Callback<List<WorkPackage>> {
                     override fun onFailure(call: Call<List<WorkPackage>>?, t: Throwable?) {
+                        t?.printStackTrace()
                     }
 
                     override fun onResponse(call: Call<List<WorkPackage>>?, response: Response<List<WorkPackage>>) {
                         runOnUiThread {
                             val sortedList = response.body().sortedByDescending { it.epochSeconds }
-                            recycler_view.layoutManager = LinearLayoutManager(this@MainActivity)
                             recycler_view.adapter = WorkPackageAdapter(sortedList)
                         }
                     }
