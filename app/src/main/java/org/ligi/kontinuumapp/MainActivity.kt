@@ -2,11 +2,13 @@ package org.ligi.kontinuumapp
 
 import android.os.Bundle
 import android.os.Handler
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.WindowManager.LayoutParams.*
 import kontinuum.model.WorkPackage
 import kotlinx.android.synthetic.main.activity_main.*
+import org.ligi.kaxt.getStackTraceString
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -16,6 +18,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 class MainActivity : AppCompatActivity() {
 
     val handler = Handler()
+    var alert: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +38,22 @@ class MainActivity : AppCompatActivity() {
 
         val callback = object : Callback<List<WorkPackage>> {
             override fun onFailure(call: Call<List<WorkPackage>>?, throwable: Throwable?) {
-                throwable?.printStackTrace()
+                throwable?.let {
+                    it.printStackTrace()
+                    runOnUiThread {
+                        alert?.dismiss()
+                        alert = AlertDialog.Builder(this@MainActivity)
+                                .setMessage(it.getStackTraceString())
+                                .show()
+                    }
+                }
+
             }
 
             override fun onResponse(call: Call<List<WorkPackage>>?, response: Response<List<WorkPackage>>) {
                 runOnUiThread {
+                    alert?.dismiss()
+                    alert = null
                     val sortedList = response.body().sortedByDescending { it.epochSeconds }
                     recycler_view.adapter = WorkPackageAdapter(sortedList)
                 }
