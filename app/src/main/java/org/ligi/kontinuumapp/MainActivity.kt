@@ -54,8 +54,11 @@ class MainActivity : AppCompatActivity() {
                 runOnUiThread {
                     alert?.dismiss()
                     alert = null
-                    val sortedList = response.body().sortedByDescending { it.epochSeconds }
-                    recycler_view.adapter = WorkPackageAdapter(sortedList)
+                    val body = response.body()
+                    if (body != null) {
+                        val sortedList = body.sortedByDescending { it.epochSeconds }
+                        recycler_view.adapter = WorkPackageAdapter(sortedList)
+                    }
                 }
             }
 
