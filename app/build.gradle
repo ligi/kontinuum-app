@@ -42,7 +42,7 @@ dependencies {
     compile "com.squareup.retrofit2:retrofit:2.3.0"
     compile "com.squareup.retrofit2:converter-moshi:2.3.0"
 
-    compile 'com.github.ligi:kontinuum-model:0.3'
+    compile 'com.github.ligi:kontinuum-model:0.4'
     compile 'com.github.ligi:KAXT:0.18'
 
     androidTestCompile('com.android.support.test.espresso:espresso-core:3.0.1', {
