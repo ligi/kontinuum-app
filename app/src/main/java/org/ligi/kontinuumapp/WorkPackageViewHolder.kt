@@ -30,7 +30,7 @@ class WorkPackageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
 
         itemView.time_text.text = workPackage.epochSeconds.toTime()
 
-        val stageInfoText = workPackage.stageInfoList.map {
+        val stageInfoText = workPackage.stageInfoList.joinToString("\n") {
             it.stage + " " + it.status + " " +
 
                     if (it.endEpochSeconds != null) {
@@ -39,15 +39,15 @@ class WorkPackageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
                         it.startEpochSeconds.toTime()
                     }
 
-        }.joinToString("\n")
+        }
         itemView.stateinfo_text.text = stageInfoText
     }
 
 
-    fun Long.toTime() = DateUtils.getRelativeDateTimeString(itemView.context, this * 1000,
+    private fun Long.toTime() = DateUtils.getRelativeDateTimeString(itemView.context, this * 1000,
             DateUtils.SECOND_IN_MILLIS,
             DateUtils.WEEK_IN_MILLIS,
             0
-    )!!
+    )
 
 }

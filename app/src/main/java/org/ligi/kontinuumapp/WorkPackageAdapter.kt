@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import kontinuum.model.WorkPackage
 
-class WorkPackageAdapter(val list: List<WorkPackage>) : RecyclerView.Adapter<WorkPackageViewHolder>() {
+class WorkPackageAdapter(private val list: List<WorkPackage>) : RecyclerView.Adapter<WorkPackageViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkPackageViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_workpackage, parent, false)
