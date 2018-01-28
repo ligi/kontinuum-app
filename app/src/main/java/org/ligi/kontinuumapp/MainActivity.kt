@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.WindowManager.LayoutParams.*
 import kontinuum.model.WorkPackage
 import kotlinx.android.synthetic.main.activity_main.*
+import org.ligi.kaxt.dismissIfNotNullAndShowing
 import org.ligi.kaxt.getStackTraceString
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,9 +42,7 @@ class MainActivity : AppCompatActivity() {
                 throwable?.let {
                     it.printStackTrace()
                     runOnUiThread {
-                        if (!isFinishing) {
-                            alert?.dismiss()
-                        }
+                        alert.dismissIfNotNullAndShowing()
                         alert = AlertDialog.Builder(this@MainActivity)
                                 .setMessage(it.getStackTraceString())
                                 .show()
