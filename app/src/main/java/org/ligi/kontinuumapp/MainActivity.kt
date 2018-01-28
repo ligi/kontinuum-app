@@ -42,10 +42,12 @@ class MainActivity : AppCompatActivity() {
                 throwable?.let {
                     it.printStackTrace()
                     runOnUiThread {
-                        alert.dismissIfNotNullAndShowing()
-                        alert = AlertDialog.Builder(this@MainActivity)
-                                .setMessage(it.getStackTraceString())
-                                .show()
+                        if (!isFinishing) {
+                            alert.dismissIfNotNullAndShowing()
+                            alert = AlertDialog.Builder(this@MainActivity)
+                                    .setMessage(it.getStackTraceString())
+                                    .show()
+                        }
                     }
                 }
 
@@ -53,12 +55,14 @@ class MainActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<List<WorkPackage>>?, response: Response<List<WorkPackage>>) {
                 runOnUiThread {
-                    alert?.dismiss()
-                    alert = null
-                    val body = response.body()
-                    if (body != null) {
-                        val sortedList = body.sortedByDescending { it.epochSeconds }
-                        recycler_view.adapter = WorkPackageAdapter(sortedList)
+                    if (!isFinishing) {
+                        alert.dismissIfNotNullAndShowing()
+                        alert = null
+                        val body = response.body()
+                        if (body != null) {
+                            val sortedList = body.sortedByDescending { it.epochSeconds }
+                            recycler_view.adapter = WorkPackageAdapter(sortedList)
+                        }
                     }
                 }
             }
