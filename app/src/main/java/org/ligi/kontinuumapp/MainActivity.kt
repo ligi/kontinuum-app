@@ -41,7 +41,9 @@ class MainActivity : AppCompatActivity() {
                 throwable?.let {
                     it.printStackTrace()
                     runOnUiThread {
-                        alert?.dismiss()
+                        if (!isFinishing) {
+                            alert?.dismiss()
+                        }
                         alert = AlertDialog.Builder(this@MainActivity)
                                 .setMessage(it.getStackTraceString())
                                 .show()
