@@ -77,4 +77,11 @@ class MainActivity : AppCompatActivity() {
         })
 
     }
+
+    override fun onPause() {
+        alert.dismissIfNotNullAndShowing()
+        alert = null
+
+        super.onPause()
+    }
 }
